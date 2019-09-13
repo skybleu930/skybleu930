@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FollowNoticeDAO">
+
+	<select id="getNoticeSize" parameterType="followNotice" resultType="int">
+		select count(*) from sns_follow_notice
+		where fwingNick=#{fwingNick} and ffwingNick is null and notiyn='n' and not ntype='3'
+		or fwerNick=#{fwerNick} and ffwingNick is not null and notiyn='n'
+		or fwerNick=#{fwerNick} and ntype='3' and notiyn='n'
+	</select>
+	
+	<select id="getFollowNotice" parameterType="followNotice" resultType="followNotice">
+		select * from sns_follow_notice
+		where fwingNick=#{fwingNick} and ffwingNick is null and not ntype='3'
+		or fwerNick=#{fwerNick} and ffwingNick is not null
+		or fwerNick=#{fwerNick} and ntype='3'
+	</select>
+	
+	<select id="getNoticeGood" parameterType="followNotice" resultType="followNotice">
+		select * from sns_follow_notice
+		where fwerNick=#{fwerNick} and ffwingNick is not null and ntype='1'
+		or fwingNick=#{fwingNick} and ffwingNick is null and ntype='1'
+		order by indate desc
+	</select>
+	
+	<select id="getNoticeFollow" parameterType="followNotice" resultType="followNotice">
+		select * from sns_follow_notice
+		where fwerNick=#{fwerNick} and ffwingNick is not null and ntype='2'
+		or fwingNick=#{fwingNick} and ffwingNick is null and ntype='2'
+		order by indate desc
+	</select>
+	
+	<select id="getNoticeNews" parameterType="followNotice" resultType="followNotice">
+		select * from sns_follow_notice
+		where fwerNick=#{fwerNick} and ntype='3'
+		order by indate desc
+	</select>
+	
+
+	<update id="noticeCheck" parameterType="followNotice">
+		update sns_follow_notice set notiyn='y' 
+		where fwingNick=#{fwingNick} and ffwingNick is null and notiyn='n' and not ntype='3' 
+		or fwerNick=#{fwerNick} and ffwingNick is not null and notiyn='n' 
+		or fwerNick=#{fwerNick} and ntype='3' and notiyn='n'
+	</update>
+	
+	<insert id="setFollowNoticeGood" parameterType="followNotice">
+		insert into sns_follow_notice 
+		(bseq, fwerNick, fwingNick, ffwingNick, ntype)
+		values(#{bseq}, #{fwerNick}, #{fwingNick}, #{ffwingNick}, 1)
+	</insert>
+	
+	<insert id="setFollowNotice" parameterType="followNotice">
+		insert into sns_follow_notice
+		(fwerNick, fwingNick, ffwingNick, ntype)
+		values(#{fwerNick}, #{fwingNick}, #{ffwingNick}, 2)
+	</insert>
+	
+	<insert id="setFollowNoticeBoard" parameterType="followNotice">
+		insert into sns_follow_notice
+		(bseq, fwerNick, fwingNick, ntype)
+		values(#{bseq}, #{fwerNick}, #{fwingNick}, 3)
+	</insert>
+	
+	<delete id="deleteFollowNoticeGood" parameterType="followNotice">
+		DELETE FROM sns_follow_notice
+		WHERE bseq=#{bseq} and fwerNick=#{fwerNick} and ntype='1'
+	</delete>
+	
+	<delete id="deleteFollowNotice" parameterType="followNotice">
+		DELETE FROM sns_follow_notice
+		WHERE fwerNick=#{fwerNick} and fwingNick=#{fwingNick} and ntype='2'
+		or fwingNick=#{fwingNick}and ffwingNick=#{ffwingNick}and ntype='2'
+	</delete>
+	
+	
+</mapper>

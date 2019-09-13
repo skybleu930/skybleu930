@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FollowListDAO">
+
+	<insert id="follow" parameterType="followList">
+		insert into sns_follow_list(fwerNick, fwingNick) 
+		values(#{fwerNick}, #{fwingNick})
+	</insert>
+
+	<select id="getMyFolloWingList" parameterType="followList" resultType="followList">
+		select fwingNick from sns_follow_list where fwerNick=#{fwerNick}
+	</select>
+	
+	<select id="getMyFolloWerList" parameterType="followList" resultType="followList">
+		select fwerNick from sns_follow_list where fwingNick=#{fwingNick}
+	</select>
+
+	<select id="confirmFollow" parameterType="followList" resultType="int">
+		select count(*) from sns_follow_list where fwerNick=#{fwerNick} and fwingNick=#{fwingNick}
+	</select>
+	
+	<delete id="unFollow" parameterType="followList">
+		delete from sns_follow_list where fwerNick=#{fwerNick} and fwingNick=#{fwingNick}
+	</delete>
+	
+</mapper>

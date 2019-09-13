@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MessageDAO">
+
+	<select id="getMessageSize" parameterType="message" resultType="int">
+		select count(*) from sns_message where dearNick=#{dearNick} and myn='n'
+	</select>
+	
+	<select id="getMessageList" parameterType="message" resultType="message">
+		select * from sns_message where dearNick=#{dearNick}
+		order by mrep asc, indate desc
+	</select>
+	
+	<select id="getMessage" parameterType="message" resultType="message">
+		select * from sns_message where mseq=#{mseq}
+	</select>
+	
+	<select id="getConnectMseq" parameterType="message" resultType="message">
+			select mseq from sns_message where remseq=#{mseq}
+	<!-- 		where case when (select count(*) form sns_message where remseq=#{mseq}) = 0
+			then '0' esle remseq=#{mseq} end -->
+	</select>
+	
+	<select id="getSendMessageList" parameterType="message" resultType="message">
+		select * from sns_message where fromNick=#{fromNick}
+		order by indate desc
+	</select>
+	
+	<insert id="setMessage" parameterType="message">
+		insert into sns_message (dearNick, fromNick, message)
+		values(#{dearNick}, #{fromNick}, #{message})
+	</insert>
+
+	<update id="ReMessageComplete" parameterType="message">
+		<selectKey keyProperty="remseq" resultType="int" order="BEFORE">
+			select max(mseq) from sns_message
+		</selectKey>
+		update sns_message set remseq=#{remseq}, mrep='2' where mseq=#{mseq}
+	</update>
+	
+	<update id="messageCheck" parameterType="message">
+		update sns_message set myn='y' where dearNick=#{dearNick} and myn='n'
+	</update>
+
+</mapper>

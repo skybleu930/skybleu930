@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<typeAliases>
+		<typeAlias type="com.sns.biz.dto.MemberVO" alias="member"/>
+		<typeAlias type="com.sns.biz.dto.BoardVO" alias="board"/>
+		<typeAlias type="com.sns.biz.dto.BoardGoodVO" alias="boardGood"/>
+		<typeAlias type="com.sns.biz.dto.FollowListVO" alias="followList"/>
+		<typeAlias type="com.sns.biz.dto.FollowNoticeVO" alias="followNotice"/>
+		<typeAlias type="com.sns.biz.dto.MessageVO" alias="message"/>
+		<typeAlias type="com.sns.biz.dto.ReplyVO" alias="reply"/>
+	</typeAliases> 
+	
+	 <mappers>
+		<mapper resource="mappings/member-mapper.xml" />
+		<mapper resource="mappings/board-mapper.xml" />
+		<mapper resource="mappings/board-good-mapper.xml" />
+		<mapper resource="mappings/follow-list-mapper.xml" />
+		<mapper resource="mappings/follow-notice-mapper.xml" />
+		<mapper resource="mappings/message-mapper.xml" />
+		<mapper resource="mappings/reply-mapper.xml" />
+	</mappers> 
+	
+</configuration>

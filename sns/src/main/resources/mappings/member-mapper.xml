@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberDAO">
+
+	<select id="getMember" parameterType="member" resultType="member">
+		SELECT * FROM sns_member WHERE EMAIL=#{email} AND PW=#{pw} AND USEYN='y'
+	</select>
+	
+	<select id="checkEmail" parameterType="member" resultType="int">
+		SELECT COUNT(*) FROM sns_member WHERE EMAIL=#{email}
+	</select>
+	
+	<select id="checkNickname" parameterType="member" resultType="int">
+		SELECT COUNT(*) FROM sns_member WHERE NICKNAME=#{nickname}
+	</select>
+	
+	<select id="getNicknameMember" parameterType="String" resultType="member">
+		select * from sns_member where nickname=#{nickname}
+	</select>
+
+	 <insert id="insertMember" parameterType="member">
+		INSERT INTO sns_member (EMAIL, PW, NAME, NICKNAME, PHONE)
+		VALUES(#{email}, #{pw}, #{name}, #{nickname}, #{phone})
+	</insert>
+
+	<update id="memberUpdate" parameterType="member">
+		update sns_member set pw=#{pw}, name=#{name}, nickname=#{nickname}, phone=#{phone}, 
+		image=#{image} where email=#{email}
+	</update>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReplyDAO">
+
+	<insert id="setParentReply" parameterType="reply">
+		insert into sns_reply (bseq, comment, parentNick, grp, seq)
+		values(#{bseq}, #{comment}, #{parentNick}, #{grp}, #{seq})
+	</insert>
+	
+	<insert id="setChildReply" parameterType="reply">
+		<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+			select max(seq)+1 from sns_reply where bseq=#{bseq}
+		</selectKey>
+		insert into sns_reply 
+		(bseq, comment, parentNick, childNick, parent, grp, depth, seq)
+		values(#{bseq}, #{comment}, #{parentNick}, #{childNick}, #{parent}, #{grp}, #{depth}, #{seq})
+	</insert>	
+
+	<select id="getReplyList" parameterType="reply" resultType="reply">
+		select * from sns_reply where bseq=#{bseq} order by grp, seq asc
+	</select>
+	
+	<select id="getMaxGrpAndSeq"  parameterType="reply"  resultType="reply">
+		select * from sns_reply 
+		where bseq=#{bseq} and seq=(select max(seq) from sns_reply where bseq=#{bseq})
+	</select>
+
+</mapper>

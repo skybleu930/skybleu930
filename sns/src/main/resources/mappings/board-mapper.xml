@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDAO">
+	
+	<select id="getBoard" parameterType="String" resultType="board">
+		SELECT * FROM sns_board WHERE subject like'%' || #{search} ||'%'
+	</select>
+	
+	<select id="getMyBoard" parameterType="board" resultType="board">
+		select * from sns_board where nickname=#{nickname}
+	</select>
+	
+	<select id="getBoardDetail" parameterType="board" resultType="board">
+		select * from sns_board where bseq=#{bseq}
+	</select>
+	
+	<select id="getMaxBoardBseq" parameterType="board" resultType="int">
+	 	select max(bseq) from sns_board where nickname=#{nickname}
+	</select>
+	
+	<insert id="setMyBoard" parameterType="board">
+		insert into sns_board(subject, content, image, nickname) 
+		values(#{subject}, #{content}, #{image}, #{nickname})
+	</insert>
+	
+	<update id="boardGoodPuls" parameterType="board">
+		<selectKey keyProperty="good" resultType="int" order="BEFORE">
+			select good+1 from sns_board where bseq=#{bseq}
+		</selectKey>
+			update sns_board set good=#{good} where bseq=#{bseq}
+	</update>
+	
+	<update id="boardGoodMinus" parameterType="board">
+		<selectKey keyProperty="good" resultType="int" order="BEFORE">
+			select good-1 from sns_board where bseq=#{bseq}
+		</selectKey>
+			update sns_board set good=#{good} where bseq=#{bseq}
+	</update>
+</mapper>
