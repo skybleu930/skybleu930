@@ -151,17 +151,16 @@ public class FollowController {
 			List<FollowNoticeVO> noticeFollowList =
 					followNoticeDAO.getNoticeFollow(followNotice);
 			
-			//좋아요한사람 정보를 가져온다.
+			
 			ArrayList<MemberVO> memberList = new ArrayList<MemberVO>();
 			for (FollowNoticeVO nickname : noticeFollowList) {
+				MemberVO member = new MemberVO();
 				if(nickname.getFfwingNick() == null) {
-					MemberVO member = new MemberVO();
 					member.setNickname(nickname.getFwerNick());
 					member = memberDAO.getNicknameMember(member);
 					memberList.add(member);
 				} else {
-					MemberVO member = new MemberVO();
-					member.setNickname(nickname.getFwerNick());
+					member.setNickname(nickname.getFwingNick());
 					member = memberDAO.getNicknameMember(member);
 					memberList.add(member);
 				}

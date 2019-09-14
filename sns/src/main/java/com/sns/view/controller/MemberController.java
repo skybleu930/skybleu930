@@ -35,6 +35,7 @@ public class MemberController {
 			sessionStatus.setComplete();
 		}
 		request.setAttribute("loginform", 1); //로그인 페이지 헤더 로그인 버튼 숨기기 
+		// 로그인 안해도 되는 사이트 배포용 코드
 //		request.setAttribute("email", "aa");
 //		request.setAttribute("pw", "aa");
 		return "member/loginForm.jsp";
@@ -94,8 +95,10 @@ public class MemberController {
 		if(request.getSession(false) != null) {
 			sessionStatus.setComplete();
 		}
+		
 		return "redirect:index.do"; 
-		//return "redirect:login.do";
+		// 로그인 안해도 되는 사이트 배포용 코드
+//		return "redirect:login.do";
 	}
 	
 	@RequestMapping("/memberModify.do")

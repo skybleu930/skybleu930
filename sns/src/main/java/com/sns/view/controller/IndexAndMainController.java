@@ -44,6 +44,7 @@ public class IndexAndMainController {
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 		if(loginUser == null ) {
 			return "index.do";
+			// 로그인 안해도 되는 사이트 배포용 코드
 //			MemberVO vo = new MemberVO();
 //			vo.setEmail("aa");
 //			vo.setPw("aa");

@@ -38,7 +38,7 @@ function go_login(form) {
 				<input type="button" class="button2" value="취소" onclick="go_back(this.form)">
 				<input type="button" class="button1" value="로그인 " onclick="go_login(this.form)">
 			</p>
-		<!-- 	<table class="table2" border="1px" style="width: 20%; text-align: center;">	
+		 	<table class="table2" border="1px" style="width: 20%; text-align: center;">	
 				<tr>
 					<th colspan="3">테스트 아이디</th>
 				</tr>
@@ -57,7 +57,10 @@ function go_login(form) {
 				<tr>
 					<td>dd</td><td>dd</td><td>dd</td>
 				</tr>
-			</table> -->
+				<tr>
+					<td>ee</td><td>ee</td><td>아이언맨</td>
+				</tr>
+			</table> 
 		</form>
 	</article>
 	<%@ include file="../footer.jsp" %>   
