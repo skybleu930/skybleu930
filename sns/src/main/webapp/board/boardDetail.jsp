@@ -164,7 +164,7 @@ function reply_write_cancel(rseq) {
 								<img class="profile_img2" 
 									src="image/member_image/${loginUser.image}">
 								<textarea class="reply_write" id="comment${replyVO.rseq}" 
-								name="comment${replyVO.rseq}" rows="1" cols="40" placeholder=" 댓글 쓰기">
+								name="comment${replyVO.rseq}" rows="1" cols="40">
 								</textarea>	
 								<div class="reply_button_div">
 									<input type="button" class="reply_reg_button2" value="취 소 " 
@@ -197,7 +197,7 @@ function reply_write_cancel(rseq) {
 								<img class="profile_img3" 
 									src="image/member_image/${loginUser.image}">
 								<textarea class="reply_write" id="comment${replyVO.rseq}"  
-								name="comment${replyVO.rseq}" rows="1" cols="40" placeholder=" 댓글 쓰기">
+								name="comment${replyVO.rseq}" rows="1" cols="40">
 								</textarea>	
 								<div class="reply_button_div">
 									<input type="button" class="reply_reg_button2" value="취 소 " 

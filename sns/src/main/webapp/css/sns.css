@@ -47,6 +47,16 @@ a:hover, a:active {
 	font-size: 12px;
 }
 
+/*  테스트 아이디 전용 */
+.table2 {
+	margin: auto;
+}
+.table2 td {
+	height: 20px;
+	text-align: center;
+	font-size: 15px;
+}
+
 .input_text {
 	height: 25px;
 	font-size: 15px;
@@ -358,7 +368,7 @@ header {
 	
 }
 
-* {
+/* * {
   box-sizing: border-box;
 }
 
@@ -366,7 +376,7 @@ header {
   display: flex;
   flex-wrap: wrap;
   padding: 0 4px;
-}
+} */
 
 .board_list{
 	/* float: left;
@@ -382,7 +392,7 @@ header {
 }
 
 .board_list figure{
-        display: inline-block;
+        display: inline-block; 
         border:1px solid rgba(0,0,0,0.2);
         margin:0;
         margin-bottom: 15px;

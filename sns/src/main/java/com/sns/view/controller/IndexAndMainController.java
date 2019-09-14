@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.sns.biz.dao.BoardDAO;
 import com.sns.biz.dao.FollowNoticeDAO;
+import com.sns.biz.dao.MemberDAO;
 import com.sns.biz.dao.MessageDAO;
 import com.sns.biz.dto.FollowNoticeVO;
 import com.sns.biz.dto.MemberVO;
@@ -25,20 +26,16 @@ public class IndexAndMainController {
 	MessageDAO messageDAO;
 	@Autowired
 	FollowNoticeDAO followNoticeDAO;
+	@Autowired
+	MemberDAO memberDAO;
 	
 	@RequestMapping("/index.do")
-	public String indexView(HttpServletRequest request) {
+	public String indexView(HttpServletRequest request, SessionStatus sessionStatus) {
 		if(request.getSession(false) != null) {
-			HttpSession session = request.getSession(false);
-			
-			if(session.getAttribute("email_nullCheck") != null) {
-				session.setAttribute("email_nullCheck", "");
-			}
-			if(session.getAttribute("nickname_nullCheck")!= null) {
-				session.setAttribute("nickname_nullCheck", "");
-			}
+			sessionStatus.setComplete();
 		}
 		return "index.jsp";
+		//return "redirect:main.do";
 	}
 	
 	@RequestMapping("/main.do")
@@ -47,16 +44,16 @@ public class IndexAndMainController {
 		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 		if(loginUser == null ) {
 			return "index.do";
+//			MemberVO vo = new MemberVO();
+//			vo.setEmail("aa");
+//			vo.setPw("aa");
+//			loginUser = memberDAO.getMember(vo);
+//			session.setAttribute("loginUser", loginUser);
 		} else {
 			String search = "";
 			if(request.getParameter("search") != null) {
 				 search = request.getParameter("search");
 			}
-			/*
-			 * message.setDearNick(loginUser.getNickname());
-			 * followNotice.setFwingNick(loginUser.getNickname());
-			 * followNotice.setFwerNick(loginUser.getNickname());
-			 */
 			
 			//게시판 불러오는 구문
 			model.addAttribute("boardList", boardDAO.getBoard(search));

@@ -26,16 +26,38 @@ function go_login(form) {
 		<form method="post">
 			<table class="table1">	
 				<tr>
-					<td><input class="input_text" type="text" size="30" name="email" placeholder="아이디 입력"/></td>
+					<td><input class="input_text" type="text" size="30" name="email" placeholder="아이디 입력"
+						value="${email}"/></td>
 				</tr>
 				<tr>
-					<td><input class="input_text" type="password" size="30" name="pw" placeholder="비밀번호 입력"/></td>
+					<td><input class="input_text" type="password" size="30" name="pw" placeholder="비밀번호 입력"
+						value="${pw}"/></td>
 				</tr>
 			</table>
 			<p>
 				<input type="button" class="button2" value="취소" onclick="go_back(this.form)">
 				<input type="button" class="button1" value="로그인 " onclick="go_login(this.form)">
 			</p>
+		<!-- 	<table class="table2" border="1px" style="width: 20%; text-align: center;">	
+				<tr>
+					<th colspan="3">테스트 아이디</th>
+				</tr>
+				<tr>
+					<th>ID</th><th>PW</th><th>닉네임</th>
+				</tr>
+				<tr>
+					<td>aa</td><td>aa</td><td>임꺽정</td>
+				</tr>
+				<tr>
+					<td>bb</td><td>bb</td><td>홍길동</td>
+				</tr>
+				<tr>
+					<td>cc</td><td>cc</td><td>cc</td>
+				</tr>
+				<tr>
+					<td>dd</td><td>dd</td><td>dd</td>
+				</tr>
+			</table> -->
 		</form>
 	</article>
 	<%@ include file="../footer.jsp" %>   

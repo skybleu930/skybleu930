@@ -30,18 +30,13 @@ public class MemberController {
 	ServletContext ServletContext;
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-	public String loginForm(HttpServletRequest request) {
+	public String loginForm(HttpServletRequest request, SessionStatus sessionStatus) {
 		if(request.getSession(false) != null) {
-			HttpSession session = request.getSession(false);
-			
-			if(session.getAttribute("email_nullCheck") != "") {
-				session.setAttribute("email_nullCheck", "");
-			}
-			if(session.getAttribute("nickname_nullCheck") != "") {
-				session.setAttribute("nickname_nullCheck", "");
-			}
+			sessionStatus.setComplete();
 		}
 		request.setAttribute("loginform", 1); //로그인 페이지 헤더 로그인 버튼 숨기기 
+//		request.setAttribute("email", "aa");
+//		request.setAttribute("pw", "aa");
 		return "member/loginForm.jsp";
 	}
 	
@@ -56,16 +51,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/joinForm.do")
-	public String joinForm(HttpServletRequest request) {
+	public String joinForm(HttpServletRequest request, SessionStatus sessionStatus) {
 		if(request.getSession(false) != null) {
-			HttpSession session = request.getSession(false);
-			
-			if(session.getAttribute("email_nullCheck") != null) {
-				session.setAttribute("email_nullCheck", "");
-			}
-			if(session.getAttribute("nickname_nullCheck")!= null) {
-				session.setAttribute("nickname_nullCheck", "");
-			}
+				sessionStatus.setComplete();
 		}	
 		request.setAttribute("joinform", 1); //회원가입 페이지 헤더 회원가입 버튼 숨기기 
 		return "member/joinForm.jsp";
@@ -81,12 +69,12 @@ public class MemberController {
 			session.setAttribute("nickname_nullCheck", "yes");
 		}
 		
-		if(vo.getEmail() != "") {
+		if(!vo.getEmail().equals("")) {
 			request.setAttribute("email_message", memberDAO.checkEmail(vo)); 
 			request.setAttribute("email", vo.getEmail());
 		}
 		
-		if(vo.getNickname() != "") {
+		if(!vo.getNickname().equals("")) {
 			request.setAttribute("nickname_message", memberDAO.checkNickname(vo)); 
 			request.setAttribute("nickname", vo.getNickname());
 		}
@@ -106,7 +94,8 @@ public class MemberController {
 		if(request.getSession(false) != null) {
 			sessionStatus.setComplete();
 		}
-		return "index.do"; 
+		return "redirect:index.do"; 
+		//return "redirect:login.do";
 	}
 	
 	@RequestMapping("/memberModify.do")
@@ -148,7 +137,7 @@ public class MemberController {
 		if(loginUser == null ) {
 			return "index.do";
 		} else {
-			if(member.getNickname().trim() != "") {
+			if(!member.getNickname().trim().equals("")) {
 				model.addAttribute("nickname_message", memberDAO.checkNickname(member)); //메세지에 따라 분기를 준다.
 				model.addAttribute("nickname", member.getNickname());
 			}

@@ -5,7 +5,7 @@
 <mapper namespace="BoardDAO">
 	
 	<select id="getBoard" parameterType="String" resultType="board">
-		SELECT * FROM sns_board WHERE subject like'%' || #{search} ||'%'
+		SELECT * FROM sns_board WHERE subject like CONCAT('%',#{search},'%')
 	</select>
 	
 	<select id="getMyBoard" parameterType="board" resultType="board">

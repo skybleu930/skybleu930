@@ -44,8 +44,10 @@
 	}
 	
 	function go_search() {
-		document.header_form.action = "main.do"
-		document.header_form.submit();	
+		if (window.event.keyCode == 13) {
+			document.header_form2.action = "main.do"
+			document.header_form2.submit();	
+		}
 	}
 </script>
 </head>
